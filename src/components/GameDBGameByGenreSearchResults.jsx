@@ -13,6 +13,7 @@ class GameDBGameByGenreSearchResults extends Component {
             genreInfo: [],
             genreId: this.props.match.params.id,
             expanded: false,
+            genreGames: [],
         }
         this.goBack = this.goBack.bind(this);
         this.changeExpansion = this.changeExpansion.bind(this);
@@ -23,6 +24,7 @@ class GameDBGameByGenreSearchResults extends Component {
     }
 
     componentDidMount() {
+        
         this.loadGamesByGenre();
     }
 
@@ -31,6 +33,20 @@ class GameDBGameByGenreSearchResults extends Component {
             this.setState({
                 genreInfo: response.data,
                 genreName: response.data.name,
+            })
+        })
+        Api.getRequest('genres').then((response) => {
+            let genreGamesIndex = 0;
+            for (var i = 0; i < response.data.results.length; i++) {
+                if(response.data.results[i].id == this.state.genreId){
+                    genreGamesIndex = i;
+                    
+                }
+            }
+            console.log(response.data.results[genreGamesIndex].id)
+            console.log(response.data.results)
+            this.setState({
+                genreGames: response.data.results[genreGamesIndex].games,
             })
         })
             .catch((error) => {
@@ -84,9 +100,12 @@ class GameDBGameByGenreSearchResults extends Component {
 
                         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
                             <CardContent>
+                            <Typography paragraph> Games Examples</Typography>
+                            {this.state.genreGames.map(game =>
                                 <Typography paragraph>
-
+                                    {game.name}
                                 </Typography>
+                            )}
                             </CardContent>
                         </Collapse>
                     </Card>
