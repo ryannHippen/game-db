@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Api from "../service/Api"
 import { Card, CardContent, CardMedia, Typography, Grid, Button, CardActions, CardActionArea } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-
+import '../App.css';
 
 
 class GameDBGenre extends Component {
@@ -48,39 +47,33 @@ class GameDBGenre extends Component {
 
 
     render() {
-        const useStyles = makeStyles({
-            card: {
-                maxWidth: 345,
-                margin: 10
-            },
-            pos: {
-                margin: 100,
-              },  
-        });
+
         return (
-            <Box>
-                <Grid container justify="center" > <h2 >Select Genre For More Information</h2></Grid>
-                <Grid container justify="center" > 
-                {this.state.apiResultsGenreInfo.map(genre =>
-                    <Card container className={useStyles.card}>
-                        <CardActionArea>
-                            <CardMedia style={{ width: 300, height: 175, margin:8}}
-                                image={genre.image}
-                                text
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    {genre.name}
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-                            <Button size="small" color="primary" onClick={() => { this.resultSearch(genre.id) }}>
-                                More Info 
+            <Box className='box-padding box-default'>
+                <Grid container justify="center" className="h2-label-font">
+                    <h2>Select Genre For More Information</h2>
+                </Grid>
+                <Grid container justify="center" >
+                    {this.state.apiResultsGenreInfo.map(genre =>
+                        <Card container className='pos' >
+                            <CardActionArea>
+                                <CardMedia className='card-media-all-genre'
+                                    image={genre.image}
+                                    text
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                        {genre.name}
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                            <CardActions>
+                                <Button size="small" color="primary" onClick={() => { this.resultSearch(genre.id) }}>
+                                    More Info
                             </Button>
-                        </CardActions>
-                    </Card>
-                )}
+                            </CardActions>
+                        </Card>
+                    )}
                 </Grid>
             </Box>
         )

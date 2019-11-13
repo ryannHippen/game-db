@@ -20,3 +20,57 @@
 .App-link {
   color: #09d3ac;
 }
+
+.card {
+  max-width: 345;
+  margin: 10;
+}
+.pos {
+  margin: 10px;
+}
+
+.box-default {
+  background-color: plum;
+}
+
+.box-margin-30 {
+  margin-left:15px;
+  margin-right: 15px;
+
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+.box-padding {
+  padding-bottom:0px;
+  padding-right: 75px;
+  padding-left: 75px;
+  padding-top: 0px;
+}
+
+.card-padding {
+  padding:30px;
+}
+
+.card-margin {
+  margin: 30px;
+}
+
+.h2-label-font {
+  color: white;
+}
+
+.card-media-all-genre {
+  width: 310px;
+  height: 175px;
+  margin: 10px;
+}
+
+.card-media-single-genre {
+  width: 708px;
+  height: 400px;
+  margin: auto; 
+  
+}

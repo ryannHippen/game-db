@@ -11,6 +11,7 @@ class GameDBGameByGenreSearchResults extends Component {
         this.state = {
             genreInfo: [],
             genreId: this.props.match.params.id,
+            genreDescription: '',
             expanded: false,
             genreGames: [],
         }
@@ -27,11 +28,15 @@ class GameDBGameByGenreSearchResults extends Component {
         this.loadGamesByGenre();
     }
 
+    // str.replace(/[^a-zA-Z ]/g, "")
+    // /\|&;\$%@"<>\(\)\+,/g, ""
+
     loadGamesByGenre() {
         Api.getRequest('genres/' + this.state.genreId).then((response) => {
             this.setState({
                 genreInfo: response.data,
                 genreName: response.data.name,
+                genreDescription: response.data.description.replace(/<\/?[^>]+(>|$)/g, "").replace(/&#39;/g, "'"),
             })
         })
         Api.getRequest('genres').then((response) => {
@@ -64,50 +69,47 @@ class GameDBGameByGenreSearchResults extends Component {
     render() {
 
         return (
-            <Box >
-                <div style={{ width: '75%', margin: '0 auto' }}>
-                    <Grid container justify="center" > <h2 >Genre Details</h2></Grid>
-                    <Grid container>
-                        <Card  >
-                            <CardActionArea>
-                                <CardMedia style={{ width: 1050, height: 400, margin: 8 }}
-                                    image={this.state.genreInfo.image_background}
-                                />
-                                <CardContent >
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        {this.state.genreInfo.name}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary" component="p">
-                                        {this.state.genreInfo.description}
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary" onClick={() => { this.goBack() }}>
-                                    Go Back
+            <Box className='box-default box-padding'>
+                <Grid container className="margin-auto box-padding">
+                    <Card className=" card-padding card-margin" >
+                        <CardActionArea >
+                            <CardMedia className="card-media-single-genre"
+                                image={this.state.genreInfo.image_background}
+                            />
+                            <CardContent >
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {this.state.genreInfo.name}
+                                </Typography>
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {this.state.genreDescription}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button size="small" color="primary" onClick={() => { this.goBack() }}>
+                                Go Back
                             </Button>
-                                <IconButton
-                                    onClick={this.changeExpansion}
-                                    aria-label="show more"
-                                >
-                                    <ExpandMoreIcon />
-                                </IconButton>
-                            </CardActions>
-                            <Collapse in={this.state.expanded} timeout="auto" unmountOnExit >
-                                <CardContent >
-                                    <Typography > Examples of the Genre:</Typography>
-                                    {this.state.genreGames.map(game =>
-                                        <Typography paragraph >
-                                            <ul>
-                                                <li>{game.name}</li>
-                                            </ul>
-                                        </Typography>
-                                    )}
-                                </CardContent>
-                            </Collapse>
-                        </Card>
-                    </Grid>
-                </div>
+                            <IconButton
+                                onClick={this.changeExpansion}
+                                aria-label="show more"
+                            >
+                                <ExpandMoreIcon />
+                            </IconButton>
+                        </CardActions>
+                        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit >
+                            <CardContent >
+                                <Typography > Examples of the Genre:</Typography>
+                                {this.state.genreGames.map(game =>
+                                    <Typography paragraph >
+                                        <ul>
+                                            <li>{game.name}</li>
+                                        </ul>
+                                    </Typography>
+                                )}
+                            </CardContent>
+                        </Collapse>
+                    </Card>
+                </Grid>
             </Box>
         )
     }
