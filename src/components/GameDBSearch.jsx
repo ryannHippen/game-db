@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Api from "../service/Api"
 
 
 class GameDBSearch extends Component {

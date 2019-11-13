@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Api from "../service/Api"
 import { Card, CardContent, CardMedia, Typography, Grid, Button, CardActions, CardActionArea } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import GameDBGameByGenreSearchResults from "./GameDBGameByGenreSearchResults";
+import Box from '@material-ui/core/Box';
 
 
 
@@ -16,7 +16,6 @@ class GameDBGenre extends Component {
             apiResultsGenreImage: [],
             apiResultIndex: [],
             apiResultsGenreInfo: [],
-            
         }
     }
 
@@ -52,16 +51,20 @@ class GameDBGenre extends Component {
         const useStyles = makeStyles({
             card: {
                 maxWidth: 345,
+                margin: 10
             },
+            pos: {
+                margin: 100,
+              },  
         });
         return (
-            <div>
+            <Box>
                 <Grid container justify="center" > <h2 >Select Genre For More Information</h2></Grid>
                 <Grid container justify="center" > 
                 {this.state.apiResultsGenreInfo.map(genre =>
-                    <Card className={useStyles.card} >
+                    <Card container className={useStyles.card}>
                         <CardActionArea>
-                            <CardMedia style={{ width: 300, height: 175 }}
+                            <CardMedia style={{ width: 300, height: 175, margin:8}}
                                 image={genre.image}
                                 text
                             />
@@ -79,8 +82,7 @@ class GameDBGenre extends Component {
                     </Card>
                 )}
                 </Grid>
-
-            </div>
+            </Box>
         )
     }
 }
