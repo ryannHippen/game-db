@@ -27,6 +27,7 @@
 }
 .pos {
   margin: 10px;
+  background-color: lightslategrey;
 }
 
 .box-default {
@@ -59,7 +60,27 @@
 }
 
 .h2-label-font {
-  color: white;
+  color: #767676;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(0,0,0,0.1); 
+  background: #f0c;
+  background: -webkit-linear-gradient(0deg,#339,#f0c);
+  background: -webkit-gradient(linear,left bottom,left top,from(#339),to(#f0c));
+  background: -webkit-linear-gradient(bottom,#339,#f0c);
+  background: -o-linear-gradient(bottom,#339,#f0c);
+  background: linear-gradient(0deg,#339,#f0c);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 200;
+  font-size: 1rem;
+  text-align: center;
+  vertical-align: middle;
+
+}
+
+.card-action-area {
+  padding: 100px;
+  background-color: lightslategrey;
 }
 
 .card-media-all-genre {
@@ -72,5 +93,6 @@
   width: 708px;
   height: 400px;
   margin: auto; 
+  
   
 }

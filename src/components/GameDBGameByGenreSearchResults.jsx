@@ -3,6 +3,9 @@ import Api from "../service/Api"
 import { Card, CardContent, CardMedia, Typography, Grid, Button, CardActions, CardActionArea, Collapse, IconButton } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Box from '@material-ui/core/Box';
+import GameDBGenre from './GameDBGenre'
+import { connect } from 'react-redux';
+import configureStore from "../redux/store";
 
 class GameDBGameByGenreSearchResults extends Component {
 
@@ -14,6 +17,7 @@ class GameDBGameByGenreSearchResults extends Component {
             genreDescription: '',
             expanded: false,
             genreGames: [],
+            test: [],
         }
         this.goBack = this.goBack.bind(this);
         this.changeExpansion = this.changeExpansion.bind(this);
@@ -24,7 +28,6 @@ class GameDBGameByGenreSearchResults extends Component {
     }
 
     componentDidMount() {
-
         this.loadGamesByGenre();
     }
 
@@ -42,7 +45,7 @@ class GameDBGameByGenreSearchResults extends Component {
         Api.getRequest('genres').then((response) => {
             let genreGamesIndex = 0;
             for (var i = 0; i < response.data.results.length; i++) {
-                if (response.data.results[i].id === this.state.genreId) {
+                if (response.data.results[i].id.toString() === this.state.genreId) {
                     genreGamesIndex = i;
 
                 }
@@ -115,6 +118,10 @@ class GameDBGameByGenreSearchResults extends Component {
     }
 }
 
+function mapStateToProps(state, props) {
+    return {
+        list: state.gamesList
+    };
+}
 
-
-export default GameDBGameByGenreSearchResults;
+export default connect(mapStateToProps)(GameDBGameByGenreSearchResults);

@@ -3,12 +3,14 @@ import Api from "../service/Api"
 import { Card, CardContent, CardMedia, Typography, Grid, Button, CardActions, CardActionArea } from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import '../App.css';
-
+import { connect } from 'react-redux';
+import { addGameList } from '../actions/GameDBActions';
 
 class GameDBGenre extends Component {
 
     constructor(props) {
         super(props)
+
         this.state = {
             apiResultsGenreNames: [],
             genreName: '',
@@ -19,6 +21,7 @@ class GameDBGenre extends Component {
     }
 
     componentDidMount() {
+
         this.getGenreInformation();
     }
 
@@ -46,8 +49,10 @@ class GameDBGenre extends Component {
     }
 
 
+
     render() {
 
+        let item = this.state.apiResultsGenreNames;
         return (
             <Box className='box-padding box-default'>
                 <Grid container justify="center" className="h2-label-font">
@@ -56,7 +61,7 @@ class GameDBGenre extends Component {
                 <Grid container justify="center" >
                     {this.state.apiResultsGenreInfo.map(genre =>
                         <Card container className='pos' >
-                            <CardActionArea>
+                            <CardActionArea className='card-action-area'>
                                 <CardMedia className='card-media-all-genre'
                                     image={genre.image}
                                     text
@@ -68,7 +73,8 @@ class GameDBGenre extends Component {
                                 </CardContent>
                             </CardActionArea>
                             <CardActions>
-                                <Button size="small" color="primary" onClick={() => { this.resultSearch(genre.id) }}>
+                                <Button size="small" color="primary" onClick={() => { 
+                                    this.resultSearch(genre.id); this.props.addGameList(item);}}>
                                     More Info
                             </Button>
                             </CardActions>
@@ -80,6 +86,16 @@ class GameDBGenre extends Component {
     }
 }
 
+function mapStateToProps(state, props) {
+    return {
+        gamesList: state.apiResultsGenreNames
+    };
+}
 
+function mapDispatchToProps(dispatch) {
+    return {
+        addGameList: item => dispatch(addGameList(item))
+    }
+}
 
-export default GameDBGenre;
+export default connect(mapStateToProps, mapDispatchToProps)(GameDBGenre);
