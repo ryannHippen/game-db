@@ -16,8 +16,8 @@ class GameDBGameByGenreSearchResults extends Component {
             genreId: this.props.match.params.id,
             genreDescription: '',
             expanded: false,
-            genreGames: [],
-            test: [],
+            index: 0,
+            genreName: '',
         }
         this.goBack = this.goBack.bind(this);
         this.changeExpansion = this.changeExpansion.bind(this);
@@ -31,28 +31,17 @@ class GameDBGameByGenreSearchResults extends Component {
         this.loadGamesByGenre();
     }
 
-    // str.replace(/[^a-zA-Z ]/g, "")
-    // /\|&;\$%@"<>\(\)\+,/g, ""
-
     loadGamesByGenre() {
         Api.getRequest('genres/' + this.state.genreId).then((response) => {
-            this.setState({
-                genreInfo: response.data,
-                genreName: response.data.name,
-                genreDescription: response.data.description.replace(/<\/?[^>]+(>|$)/g, "").replace(/&#39;/g, "'"),
-            })
-        })
-        Api.getRequest('genres').then((response) => {
-            let genreGamesIndex = 0;
-            for (var i = 0; i < response.data.results.length; i++) {
-                if (response.data.results[i].id.toString() === this.state.genreId) {
-                    genreGamesIndex = i;
-
-                }
+            for (var i = 0; i < this.props.list.length; i++) {
+                if(this.props.list[i].genre===response.data.name){
+                    this.setState({index: i,
+                    genreInfo: response.data,
+                    genreName: response.data.name,
+                    genreDescription: response.data.description.replace(/<\/?[^>]+(>|$)/g, "").replace(/&#39;/g, "'"),
+                })
+                break;}
             }
-            this.setState({
-                genreGames: response.data.results[genreGamesIndex].games,
-            })
         })
             .catch((error) => {
                 console.log(error)
@@ -66,8 +55,6 @@ class GameDBGameByGenreSearchResults extends Component {
             this.setState({ expanded: false })
         }
     }
-
-
 
     render() {
 
@@ -102,8 +89,8 @@ class GameDBGameByGenreSearchResults extends Component {
                         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit >
                             <CardContent >
                                 <Typography > Examples of the Genre:</Typography>
-                                {this.state.genreGames.map(game =>
-                                    <Typography paragraph >
+                                {this.props.list[this.state.index].games.map(game =>
+                                    <Typography paragraph>
                                         <ul>
                                             <li>{game.name}</li>
                                         </ul>
@@ -120,7 +107,7 @@ class GameDBGameByGenreSearchResults extends Component {
 
 function mapStateToProps(state, props) {
     return {
-        list: state.gamesList
+        list: state.gameListReducer[0]
     };
 }
 

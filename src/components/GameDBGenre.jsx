@@ -17,6 +17,7 @@ class GameDBGenre extends Component {
             apiResultsGenreImage: [],
             apiResultIndex: [],
             apiResultsGenreInfo: [],
+            genreGameList: [],
         }
     }
 
@@ -31,6 +32,11 @@ class GameDBGenre extends Component {
                 this.setState({
                     apiResultsGenreNames:
                         this.state.apiResultsGenreNames.concat(response.data.results[i].name),
+                    genreGameList: this.state.genreGameList.concat({
+                        'genre': response.data.results[i].name,
+                        'games': response.data.results[i].games,
+                    }),
+                    
                     apiResultsGenreImage:
                         this.state.apiResultsGenreImage.concat(response.data.results[i].image_background),
                     apiResultsGenreInfo: this.state.apiResultsGenreInfo.concat({
@@ -74,7 +80,7 @@ class GameDBGenre extends Component {
                             </CardActionArea>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => { 
-                                    this.resultSearch(genre.id); this.props.addGameList(item);}}>
+                                    this.resultSearch(genre.id); this.props.addGameList(this.state.genreGameList);}}>
                                     More Info
                             </Button>
                             </CardActions>
