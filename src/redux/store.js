@@ -1,7 +1,6 @@
-import { createStore, applyMiddleware} from 'redux';
+import { createStore } from 'redux';
 import rootReducer from "../reducers/rootReducer";
-import thunk from 'redux-thunk';
-
+// import thunk from 'redux-thunk';
 /**
  * When we call this function we return a created store with our reducers, so this is the same
  * as calling `const store = createStore(reducer)`. We have extracted it to a separate file. This function

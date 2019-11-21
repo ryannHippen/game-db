@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import GameDBGameByGenreSearchResults from "./GameDBGameByGenreSearchResults";
 import GameDBSearch from "./GameDBSearch";
 import GameDBGenre from "./GameDBGenre";
+import GameDBGameInfo from "./GameDBGameInfo";
 
 
 
@@ -15,6 +16,7 @@ class GameDB extends Component {
                         <Route path="/" exact component={GameDBSearch} />
                         <Route path="/games/genre/:id" exact component={GameDBGameByGenreSearchResults} />.
                         <Route path="/games/genre" exact component={GameDBGenre} />
+                        <Route path="/games/info/:name" exact component={GameDBGameInfo} />
                     </Switch>
                 </>
             </BrowserRouter>

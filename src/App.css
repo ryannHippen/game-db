@@ -92,7 +92,11 @@
 .card-media-single-genre {
   width: 708px;
   height: 400px;
-  margin: auto; 
-  
-  
+  margin: auto;   
+}
+
+.card-media-genre-examples {
+  width: 221px;
+  height: 125px;
+  margin: auto;   
 }

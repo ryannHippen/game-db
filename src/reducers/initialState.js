@@ -6,4 +6,8 @@
     
     export default {
       gamesList: [],
+      genreInfo:[],
+      genreGameExamples: [],
+      currentGameInfo: [],
+      currentGenreSelected: [],
     }
